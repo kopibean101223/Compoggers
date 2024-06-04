@@ -33,7 +33,7 @@ label2.setOpaque(true);
 
 // BOOK LIST BUTTON
 JButton b=new JButton("BOOK LIST");
-b. setBounds (350, 200,680, 109);
+b. setBounds (350, 230,680, 90);
 b.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 BOOKLIST_PAGE.main(null);
@@ -44,7 +44,7 @@ homepageframe.dispose();
 
 // BORROWER LIST BUTTON
 JButton c=new JButton("BORROWER LIST");
-c. setBounds (350, 320,680, 109);
+c. setBounds (350, 330,680, 90);
 c.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 BORROWERLIST_PAGE.main(null);
@@ -55,7 +55,7 @@ homepageframe.dispose();
 
 // BORROW LIST BUTTON
 JButton a=new JButton("REGISTER");
-a.setBounds (350, 440,680, 109);
+a.setBounds (350, 430,680, 90);
 a.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 BORROWERSELECTION_PAGE.main(null);
@@ -66,7 +66,7 @@ homepageframe.dispose();
 
 // RETURN BOOK BUTTON
 JButton d=new JButton("BORROW");
-d.setBounds (350, 560,335, 109);
+d.setBounds (350, 530,335, 90);
 d.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 BORROWBOOK_PAGE.main(null);
@@ -76,7 +76,7 @@ homepageframe.dispose();
 
 
 JButton f=new JButton("RETURN");
-f.setBounds (695, 560,335, 109);
+f.setBounds (695, 530,335, 90);
 f.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 RETURNBOOK_PAGE.main(null);
@@ -87,7 +87,7 @@ homepageframe.dispose();
 
 // PAY PENALTY BUTTON
 JButton e=new JButton("PAY PENALTY");
-e.setBounds (350, 680,680, 109);
+e.setBounds (350, 630,680, 90);
 e.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 PENALTYFORM_PAGE.main(null);
@@ -121,7 +121,7 @@ homepageframe. getContentPane() .add(f);
 
 
 // CUSTOMIZE FRAME
-homepageframe.setSize(1440,1024);
+homepageframe.setSize(1440,800);
 homepageframe.setVisible(true);
 homepageframe.setResizable(false);
 // CUSTOMIZE FRAME
