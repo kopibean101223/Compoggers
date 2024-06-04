@@ -54,7 +54,7 @@ homepageframe.dispose();
 // BORROWER LIST BUTTON
 
 // BORROW LIST BUTTON
-JButton a=new JButton("BORROW BOOK");
+JButton a=new JButton("REGISTER");
 a.setBounds (350, 440,680, 109);
 a.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
@@ -65,9 +65,19 @@ homepageframe.dispose();
 // BORROW LIST BUTTON
 
 // RETURN BOOK BUTTON
-JButton d=new JButton("RETURN BOOK");
-d.setBounds (350, 560,680, 109);
+JButton d=new JButton("BORROW");
+d.setBounds (350, 560,335, 109);
 d.addActionListener(new ActionListener(){
+public void actionPerformed (ActionEvent e){
+BORROWBOOK_PAGE.main(null);
+homepageframe.dispose();
+}
+}) ;
+
+
+JButton f=new JButton("RETURN");
+f.setBounds (695, 560,335, 109);
+f.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 RETURNBOOK_PAGE.main(null);
 homepageframe.dispose();
@@ -94,16 +104,19 @@ b.setFont(fontbutton);
 c.setFont(fontbutton);
 d.setFont(fontbutton);
 e.setFont(fontbutton);
+f.setFont(fontbutton);
 a.setBackground(Color.WHITE);
 b.setBackground(Color.WHITE);
 c.setBackground(Color.WHITE);
 d.setBackground(Color.WHITE);
 e.setBackground(Color.WHITE);
+f.setBackground(Color.WHITE);
 homepageframe. getContentPane() .add (b);
 homepageframe. getContentPane() .add(c);
 homepageframe. getContentPane() .add(a);
 homepageframe. getContentPane() .add(d);
 homepageframe. getContentPane() .add(e);
+homepageframe. getContentPane() .add(f);
 // BUTTON CUSTOMIZE
 
 

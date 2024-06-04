@@ -8,7 +8,7 @@ import java.sql.Statement;
 import javax.swing.*;
 import java.awt.*;
 
-public class STUDINFOLIST_PAGE {
+public class TEACHERINFOLIST_PAGE {
 public static void main (String[] args) {
 
 JFrame f=new JFrame("TMC'S LIBRARY MANAGEMENT SYSTEM");
@@ -35,7 +35,7 @@ label2.setOpaque(true);
 //}
 
 //FORM
-JLabel label3 = new JLabel("STUDENT INFORMATION");
+JLabel label3 = new JLabel("TEACHER INFORMATION");
 f.add(label3);
 label3.setBounds(500, 200,800, 169);
 label3.setFont(fonttitle);
@@ -74,9 +74,9 @@ try {// Load the MySQL driver
     
     
     
-    ResultSet resultSet = statement.executeQuery("SELECT LASTNAME,FIRSTNAME,INITIAL FROM BORROWER_TABLE WHERE ID = "+"'"+ STUDENTLIST_PAGE.pgcnchkr+"';");
+    ResultSet resultSet = statement.executeQuery("SELECT LASTNAME,FIRSTNAME,INITIAL FROM BORROWER_TABLE WHERE ID = "+"'"+ TEACHERLIST_PAGE.pgcnchkr+"';");
     while (resultSet.next()) {
-    	JLabel RSlbl = new JLabel("NAME: "+(resultSet.getString(1))+" "+(resultSet.getString(2))+" "+(resultSet.getString(3)));
+    	JLabel RSlbl = new JLabel("NAME:     "+(resultSet.getString(1))+" "+(resultSet.getString(2))+" "+(resultSet.getString(3)));
     	f.add(RSlbl);
     	RSlbl.setBounds(200, 340,1000, 60);
     	RSlbl.setFont(fontotpt);
@@ -89,9 +89,9 @@ try {// Load the MySQL driver
     
     
 
-    resultSet = statement.executeQuery("SELECT COURSE FROM BORROWER_TABLE WHERE ID = "+"'"+ STUDENTLIST_PAGE.pgcnchkr+"';");
+    resultSet = statement.executeQuery("SELECT DEPARTMENT FROM BORROWER_TABLE WHERE ID = "+"'"+ TEACHERLIST_PAGE.pgcnchkr+"';");
     while (resultSet.next()) {
-    	JLabel RSlbl = new JLabel("COURSE: "+(resultSet.getString(1)));
+    	JLabel RSlbl = new JLabel("DEPARTMENT:     "+(resultSet.getString(1)));
     	f.add(RSlbl);
     	RSlbl.setBounds(200, 400,1000, 60);
     	RSlbl.setFont(fontotpt);
@@ -102,55 +102,17 @@ try {// Load the MySQL driver
     }
     
 
-    resultSet = statement.executeQuery("SELECT YEARLVL FROM BORROWER_TABLE WHERE ID = "+"'"+ STUDENTLIST_PAGE.pgcnchkr+"';");
-    while (resultSet.next()) {
-    	JLabel RSlbl = new JLabel("YEAR LEVEL: "+(resultSet.getString(1)));
+    ResultSet resultSet2 = statement.executeQuery("SELECT TITLE FROM BOOK_DETAILS WHERE BORROWER_ID = "+"'"+ TEACHERLIST_PAGE.pgcnchkr+"';");
+    while (resultSet2.next()) {
+    	JLabel RSlbl = new JLabel("BORROWED BOOKS:     "+(resultSet2.getString(1)));
     	f.add(RSlbl);
     	RSlbl.setBounds(200, 460,1000, 60);
     	RSlbl.setFont(fontotpt);
     	RSlbl.setForeground(Color.BLACK);
     	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
-
     	
     }
     
-
-    resultSet = statement.executeQuery("SELECT SECTION FROM BORROWER_TABLE WHERE ID = "+"'"+ STUDENTLIST_PAGE.pgcnchkr+"';");
-    while (resultSet.next()) {
-    	JLabel RSlbl = new JLabel("SECTION: "+(resultSet.getString(1)));
-    	f.add(RSlbl);
-    	RSlbl.setBounds(200, 520,1000, 60);
-    	RSlbl.setFont(fontotpt);
-    	RSlbl.setForeground(Color.BLACK);
-    	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
-
-    	
-    }
-    
-
-    resultSet = statement.executeQuery("SELECT PENALTY FROM BORROWER_TABLE WHERE ID = "+"'"+ STUDENTLIST_PAGE.pgcnchkr+"';");
-    while (resultSet.next()) {
-    	JLabel RSlbl = new JLabel("PENALTY: "+(resultSet.getString(1)));
-    	f.add(RSlbl);
-    	RSlbl.setBounds(200, 580,1000, 60);
-    	RSlbl.setFont(fontotpt);
-    	RSlbl.setForeground(Color.BLACK);
-    	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
-
-    	
-    }
-    int h=640;
-    ResultSet resultSet2 = statement.executeQuery("SELECT TITLE FROM BOOK_DETAILS WHERE BORROWER_ID = "+"'"+ STUDENTLIST_PAGE.pgcnchkr+"';");
-    while (resultSet2.next()) {
-    	JLabel RSlbl = new JLabel("BORROWED BOOKS : "+resultSet2.getString(1));
-    	f.add(RSlbl);
-    	RSlbl.setBounds(200, h,1000, 60);
-    	RSlbl.setFont(fontotpt);
-    	RSlbl.setForeground(Color.BLACK);
-    	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
-    	h=h+30;
-    	
-    }
 
     resultSet.close();
     statement.close();
@@ -192,7 +154,7 @@ JButton c=new JButton("Back ");
 c. setBounds (1100, 830,180, 50);
 c.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
-STUDENTLIST_PAGE.main(null);
+TEACHERLIST_PAGE.main(null);
 f.dispose();
 }
 }) ;

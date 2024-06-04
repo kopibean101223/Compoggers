@@ -1,22 +1,32 @@
+import java.awt.event.*;
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.time.LocalDate;
+
+
 
 public class PENALTYFORM_PAGE {
-	private static double pnlty;
-	private static double amtinput;
-
+	public static String nmr;
+	public static JComboBox<String> comboBox = new JComboBox<>();
+	public static String selectedItem;
+	public static long daysBetween;
 public static void main (String[] args) {
-
+	Font fontop = new Font("BAHNSCHRIFT", Font.BOLD, 24);	
 JFrame f=new JFrame("TMC'S LIBRARY MANAGEMENT SYSTEM");
 f. getContentPane(). setLayout(null);
 
+String[] items = {null};
+comboBox = new JComboBox<>(items);
+comboBox.setOpaque(true);
+comboBox.setVisible(true);
+comboBox.setBounds(350, 485,300, 30);
+f.add(comboBox);
 
 //HEADER{
 JLabel label1 = new JLabel(" WELCOME TO TMC'S LIBRARY MANAGEMENT SYSTEM");
@@ -40,7 +50,7 @@ label2.setOpaque(true);
 //FORM
 JLabel label3 = new JLabel("PAY PENALTY FORM");
 f.add(label3);
-label3.setBounds(600, 200,800, 169);
+label3.setBounds(500, 200,800, 169);
 label3.setFont(fonttitle);
 label3.setBackground(Color.BLACK);
 //FORM
@@ -54,230 +64,385 @@ label4.setOpaque(true);
 label4.setBackground(Color.BLACK);
 //LINE
 
-
 JTextField idchecker;
 
-JLabel lbl2=new JLabel ("STUDENTID");
+JLabel idchkerlbl =new JLabel ("ID");
 idchecker=new JTextField(15);
-lbl2.setBounds(350, 290,300, 30);
+idchkerlbl.setBounds(350, 290,300, 30);
 idchecker.setBounds(350, 320,950, 30);
-f.add(lbl2);
+f.add(idchkerlbl);
 f.add(idchecker);
 
 
-Color customColor3 = new Color(224, 228, 230);
+JLabel brdtlbl = new JLabel("Date Borrowed: ");
+f.add(brdtlbl);
+brdtlbl.setBounds(675, 455,300, 30);
+JLabel dtdulbl = new JLabel("Due Date: ");
+	f.add(dtdulbl);
+	dtdulbl.setBounds(1000, 455,300, 30);
 
-JLabel patong=new JLabel ("");
-patong.setBounds(350, 440,950, 30);
-patong.setOpaque(true);
-patong.setBackground(customColor3);
-patong.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-f.add(patong);
+	         JLabel lbl6=new JLabel ("Borrowed Books: ");
+	         lbl6.setBounds(350, 455,300, 30);
+	         f.add(lbl6);
+	         f.add(lbl6);
+	         
+	         JLabel ttllbl = new JLabel("AMOUNT PAYABLE: ");
+	         f.add(ttllbl);
+	         ttllbl.setBounds(675, 560,300, 30);
+	         
+	         JLabel sttslbl = new JLabel("");
+	         f.add(sttslbl);
+	         sttslbl.setBounds(1000, 560,300, 30);
 
-JLabel patong2=new JLabel ("");
-patong2.setBounds(350, 560,950, 30);
-patong2.setOpaque(true);
-patong2.setBackground(customColor3);
-patong2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-f.add(patong2);
+	         JLabel lbl8=new JLabel ("PAYMENT STATUS: ");
+	         lbl8.setBounds(350, 560,300, 30);
+	         f.add(lbl8);
+
+	                  
+	Color customColor3 = new Color(224, 228, 230);
+
+	
+ 	JTextField brdt =new JTextField ();
+	f.add(brdt);
+	brdt.setBounds(675, 485,300, 30);
+	brdt.setOpaque(true);
+	brdt.setEditable(false);
+	brdt.setBackground(customColor3);
+	brdt.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+	brdt.setForeground(Color.BLACK);
+	brdt.setFont(fontop);
+	
+	JTextField dtdu =new JTextField ();
+ 	f.add(dtdu);
+ 	dtdu.setBounds(1000, 485,300, 30);
+ 	dtdu.setOpaque(true);
+ 	dtdu.setEditable(false);
+ 	dtdu.setBackground(customColor3);
+ 	dtdu.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+ 	dtdu.setForeground(Color.BLACK);
+ 	dtdu.setFont(fontop);
+ 	
+ 	JTextField pymt =new JTextField ();
+ 	f.add(pymt);
+ 	pymt.setBounds(350, 590,300, 30);
+ 	pymt.setOpaque(true);
+ 	pymt.setEditable(false);
+ 	pymt.setBackground(customColor3);
+ 	pymt.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+ 	pymt.setForeground(Color.BLACK);
+ 	pymt.setFont(fontop);
+
+JTextField pnlty =new JTextField ();
+	f.add(pnlty);
+	pnlty.setBounds(675, 590,300, 30);
+	pnlty.setOpaque(true);
+	pnlty.setEditable(false);
+	pnlty.setBackground(customColor3);
+	pnlty.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+	pnlty.setForeground(Color.BLACK);
+	pnlty.setFont(fontop);
+ 	
+ 	JTextField inptamt =new JTextField ();
+ 	f.add(inptamt);
+ 	inptamt.setBounds(350, 695,300, 30);
+ 	inptamt.setOpaque(true);
+ 	inptamt.setBackground(customColor3);
+ 	inptamt.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+ 	inptamt.setForeground(Color.BLACK);
+ 	inptamt.setFont(fontop);
+ 	
+ 	JLabel inptamtlbl = new JLabel("INPUT AMOUNT: ");
+ 	f.add(inptamtlbl);
+ 	inptamtlbl.setBounds(350, 665,300, 30);
+ 	
+ 	
+
+ 	
+ 	
+
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	comboBox.addItemListener(new ItemListener() {
+	        @Override
+	        public void itemStateChanged(ItemEvent ex) {
+	            if (ex.getStateChange() == ItemEvent.SELECTED) {
+	               selectedItem = (String) ex.getItem();
+	                nmr = selectedItem;
+
+	                System.out.println("Selected item: " + selectedItem);
+	                try {// Load the MySQL driver
+             	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+             	    // Set up the connection URL
+             	  String  url = "jdbc:mysql://localhost:3306/comprog";
+
+             	
+				 	
+
+             	    // Connect to the database
+             	   Connection conn = DriverManager.getConnection(url, "root", "");
+             	  Statement statement = conn.createStatement();
+             	    
+                 	    
+                 	   ResultSet resultSet4 = statement.executeQuery("SELECT BORROWED_DATE, DATE_DUE,PAYMENT FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
+                	    while (resultSet4.next()) {
+                	    	brdt.setText(resultSet4.getString(1));
+                	    	dtdu.setText(resultSet4.getString(2));
+                	    	
+                	    	
+                	    	LocalDate duedatez = resultSet4.getDate(2).toLocalDate();
+                	    	LocalDate today = LocalDate.now();
+                	    	daysBetween = java.time.temporal.ChronoUnit.DAYS.between(duedatez, today);
+                    	    // Assuming you want to set this value to another text field
+                	    	System.out.println(daysBetween);
+                	    	long total = daysBetween * 20;
+                	    	
+                	    	if (daysBetween <= 0) {
+                	    	    pymt.setText("NOT OVERDUE");
+                	    	    pnlty.setText("0.00");
+                	    	    return;
+                	    	} else if ("PAID".equals(resultSet4.getString(3))) {
+                	    		pymt.setText("PAID");
+                	    	    // Convert the total to a String and set it
+                	    	    pnlty.setText("0.00");
+                	    	} else {
+                	    	    pymt.setText(resultSet4.getString(3));
+                	    	    // Convert the total to a String and set it
+                	    	    pnlty.setText(Long.toString(total));
+                	    	}
+                	    	}
+                	    
+                	    
+                 	    
+
+                 	    statement.close();
+                 	    } catch (ClassNotFoundException e) {
+                 	        System.out.print("");
+                 	        e.printStackTrace();
+                 	    } catch (SQLException e) {
+                 	        System.out.print("");
+                 	        e.printStackTrace();
+                 	        JOptionPane.showMessageDialog(f, "Error!"); 
+                 	   }
+	                
+	            }
+	            
+	        }
+	    });
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+JButton chckbtn=new JButton("Check For Record");
+chckbtn.setBounds (602, 370,450, 40);
+chckbtn.addActionListener(new ActionListener(){
+public void actionPerformed (ActionEvent e){
+	String values = idchecker.getText().trim();
+    if (values.isEmpty()) {
+        JOptionPane.showMessageDialog(f, "Please enter a value in the text field.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+   
+   
+										try {// Load the MySQL driver
+									 	    Class.forName("com.mysql.cj.jdbc.Driver");
+									
+									 	    // Set up the connection URL
+									 	    String url = "jdbc:mysql://localhost:3306/comprog";
+									
+									
+									 	    // Connect to the database
+									 	    Connection conn = DriverManager.getConnection(url, "root", "");
+									 	    Statement statement = conn.createStatement();
+									 	    
+									 	 //COMBO BOX AND DISPLAY 	    
+									 	   comboBox.removeAllItems();
+									 	  comboBox.addItem(null);
+									 	 
+									 	 
+									 	 ResultSet resultSetss = statement.executeQuery("SELECT TYPE FROM BORROWER_TABLE WHERE ID = '" + idchecker.getText() + "';");
+									 	if (resultSetss.next()) {
+									 	    if ("TEACHER".equals(resultSetss.getString("TYPE"))) {
+									 	        JOptionPane.showMessageDialog(f, "TEACHERS CAN'T GET A PENALTY!");
+									 	        return; // Exit the method if the borrower is a teacher
+									 	    } else {
+									 	        ResultSet resultSet = statement.executeQuery("SELECT TITLE FROM BOOK_DETAILS WHERE BORROWER_ID = '" + idchecker.getText() + "';");
+									 	        comboBox.removeAllItems(); // Clear existing items from the combo box
+									 	        while (resultSet.next()) {
+									 	            String value = resultSet.getString(1);
+									 	            comboBox.addItem(value);
+									 	        }
+									 	        // Clear the text fields
+									 	        brdt.setText("");
+									 	        dtdu.setText("");
+									 	       pymt.setText("");
+									 	      pnlty.setText("");
+									 	        comboBox.setSelectedItem(null);
+									 	    }
+									 	} else {
+									 	    JOptionPane.showMessageDialog(f, "The ID you entered does not exist!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
+									 	}
+ 	    
+ 	    resultSetss.close();
+ 	    statement.close();
+ 	    } catch (ClassNotFoundException ef) {
+ 	        System.out.print("ha");
+ 	        ef.printStackTrace();
+ 	    } catch (SQLException ef) {
+ 	        System.out.print("ha");
+ 	        ef.printStackTrace();
+ 	   }
+}
+});
 
 
-
-
-
-
-
-
-
-
-			JButton chckbtn=new JButton("Check For Balance ");
-			chckbtn.setBounds (602, 370,450, 40);
-			chckbtn.addActionListener(new ActionListener(){
-			public void actionPerformed (ActionEvent e){
-				String value = idchecker.getText().trim();
-                if (value.isEmpty()) {
-                    JOptionPane.showMessageDialog(f, "Please enter a value in the text field.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-				
-					
-
-				Font fontop = new Font("BAHNSCHRIFT", Font.BOLD, 24);	
-				try {// Load the MySQL driver
-				    Class.forName("com.mysql.cj.jdbc.Driver");
-
-				    // Set up the connection URL
-				    String url = "jdbc:mysql://localhost:3306/MYDATABASE";
-
-				    // Connect to the database
-				    Connection conn = DriverManager.getConnection(url, "root", "");
-				    Statement statement = conn.createStatement();
-				    ResultSet resultSetss = statement.executeQuery("SELECT LASTNAME, FIRSTNAME, INITIAL FROM STUDENT_BORROWER WHERE STUDENTID = "+"'"+idchecker.getText()+"';");
-				    
-				    
-				    if (resultSetss.next()) {
-				    	ResultSet resultSet = statement.executeQuery("SELECT LASTNAME, FIRSTNAME, INITIAL FROM STUDENT_BORROWER WHERE STUDENTID = "+"'"+idchecker.getText()+"';");
-                    while (resultSet.next()) {
-				    	JLabel label10 = new JLabel((resultSet.getString(1))+", "+(resultSet.getString(2))+" "+(resultSet.getString(3))+".");
-				    	f.add(label10);
-				    	label10.setOpaque(true);
-				    	label10.setBounds(350, 440,950, 30);
-				    	label10.setFont(fontop);
-				    	label10.setForeground(Color.BLACK);
-				    	label10.setBackground(customColor3);
-				    	label10.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-				    	
-				    }
-				    
-				    
-				    
-				    ResultSet resultSets = statement.executeQuery("SELECT PENALTY FROM STUDENT_BORROWER WHERE STUDENTID = "+"'"+idchecker.getText()+"';");
-				    while (resultSets.next()) {
-				    	pnlty = Double.parseDouble((resultSets.getString(1)));
-				    	String pnltystring = Double.toString(pnlty);
-				    	JLabel label11 = new JLabel(pnltystring);
-				    	f.add(label11);
-				    	label11.setOpaque(true);
-				        label11.setBounds(350, 560,950, 30);
-				    	label11.setFont(fontop);
-				    	label11.setForeground(Color.BLACK);
-				    	label11.setBackground(customColor3);
-				    	label11.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-				    }
-
-				    } else {
-                        JOptionPane.showMessageDialog(f, "The ID you entered does not exist!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
-                    }
-				    
-				    resultSetss.close();
-					    statement.close();
-					    } catch (ClassNotFoundException ex) {
-					    	JOptionPane.showMessageDialog(f, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-				    } catch (SQLException ex) {
-				    	JOptionPane.showMessageDialog(f, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-				   }
-				
-				
-						
-				
-			}
-			
-			});
-
-			
-			f.add(chckbtn);
-			 
-				
-
-
-
-
-JLabel yn =new JLabel ("YOUR NAME:");
-yn.setBounds(350, 410,300, 30);
-f.add(yn);
-
-
+f.add(chckbtn);
+ 
 
 
          
-        
+         //BORROWER TYPE WITH TEXTBOX
+
+         
+         //BORROWER TYPE WITH TEXTBOX
+         
          
          //BORROWER TYPE WITH TEXTBOX
 
 
          
-         JLabel amtpdlbl=new JLabel ("AMOUNT PAYABLE:");
-         amtpdlbl.setBounds(350, 530,300, 30);
-         f.add(amtpdlbl);
 
 
-         
          //BORROWER TYPE WITH TEXTBOX
          
-         //BORROWER TYPE WITH TEXTBOX
-         JTextField inptamt;
-         
-         JLabel chngelbl=new JLabel ("INPUT AMOUNT:");
-         inptamt=new JTextField();
-         
-         chngelbl.setBounds(350, 650,300, 30);
-         inptamt.setBounds(350, 680,950, 30);
-         f.add(chngelbl);
-         f.add(inptamt);
 
          
-         //BORROWER TYPE WITH TEXTBOX
-         
-        
-         
-        
          
          
          
-
+         
+         
+     
          
 // HOME BUTTON
-JButton subton=new JButton("PAY ");
-subton.setBounds (350, 800,950, 50);
+JButton subton=new JButton("PAY PENALTY ");
+subton. setBounds (350, 800,950, 50);
 subton.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
-	String values = inptamt.getText();
-	 if (values.matches("[-+]?\\d*(\\.\\d+)?")) {
-						 	if (values.isEmpty()) {
-				        JOptionPane.showMessageDialog(f, "Please enter a value in the 'INPUT AMOUNT' Field	.", "Error", JOptionPane.ERROR_MESSAGE);
-						 }
-						 else {	amtinput = Double.parseDouble(inptamt.getText()); 
-									double chnge=amtinput-pnlty;
+	String values = idchecker.getText().trim();
+
+	
+    if (values.isEmpty()) {
+        JOptionPane.showMessageDialog(f, "Please enter a value in the text field.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    if ("PAID".equals(pymt.getText())) {
+    	JOptionPane.showMessageDialog(f, "You Do not neet to pay\n"+"You have no unpaid balance,Good Job!");
+    	return;
+    }
+    if ("NOT OVERDUE".equals(pymt.getText())) {
+    	JOptionPane.showMessageDialog(f, "You Do not neet to pay\n"+"You have no unpaid balance,Good Job!");
+    	return;
+    }
+    if (nmr == null) {
+    	JOptionPane.showMessageDialog(f, "Please Choose from the combobox.", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+    } 
+    
+    
+   
+
+    	
+    	
+    	double amtinput = Double.parseDouble(inptamt.getText()); 
+    	double pnltydbl = Double.parseDouble(pnlty.getText()); 
+					double chnge= amtinput  - pnltydbl;
+
+					if (pnltydbl==0) {JOptionPane.showMessageDialog(f, "You Do not neet to pay\n"+"You have no unpaid balance,Good Job!");
+
+				}
+				else if (pnltydbl>amtinput) {JOptionPane.showMessageDialog(f, "Insufficient Amount Inputted!\n"+"Enter Another Amount!");
+				}
+				else if (amtinput>=pnltydbl) {JOptionPane.showMessageDialog(f, "Thank You!,\n Your Change is PHP " + chnge);
+				pnltydbl=0;}
+				else {JOptionPane.showMessageDialog(f, "Invalid Input!");
+				}
 				
-									if (pnlty==0) {JOptionPane.showMessageDialog(f, "You Do not neet to pay\n"+"You have no unpaid balance,Good Job!");
 				
-								}
-								else if (pnlty>amtinput) {JOptionPane.showMessageDialog(f, "Insufficient Amount Inputted!\n"+"Enter Another Amount!");
-								}
-								else if (amtinput>pnlty) {JOptionPane.showMessageDialog(f, "Thank You!,\n Your Change is PHP " + chnge);
-								pnlty=0;}
-								else if (amtinput==pnlty) {JOptionPane.showMessageDialog(f, "Thank You!,\n Your Change is PHP " + chnge);
-								pnlty=0;}
-								else {JOptionPane.showMessageDialog(f, "Invalid Input!");
-								}
-								
-								
-								
-								
-								
-								
-								
-								if (pnlty==0) {
-									String url = "jdbc:mysql://localhost:3306/mydatabase";
-								    String user = "root";
-								    String password = "";
 				
-								    try {
-								        Connection conn = DriverManager.getConnection(url, user, password);
-								        Statement statement = conn.createStatement();
-								        
-								        
-								        
-								        
-								        
-								   String query = ("UPDATE STUDENT_BORROWER") + (" SET PENALTY = "+ 0) + (" WHERE STUDENTID = "+ "'"+idchecker.getText()+"';") ;
-								   				statement.executeUpdate(query);
-								        
 				
-								        System.out.println("Deleted successfully!");
-								    } catch (SQLException ex) {
-								        System.out.println("Error: " + ex.getMessage());
-								    }}
-								}
-									
-								
-								
-								
-								
-								
-	 } else {
-		 JOptionPane.showMessageDialog(f, "Invalid input!");
-     }		
+				if (pnltydbl==0) {
+					String url = "jdbc:mysql://localhost:3306/comprog";
+				    String user = "root";
+				    String password = "";
+
+				    try {
+				        Connection conn = DriverManager.getConnection(url, user, password);
+				        Statement statement = conn.createStatement();
+				        
+				        
+				        
+				        
+				        
+				   String query = ("UPDATE BOOK_DETAILS SET PAYMENT = 'PAID' WHERE TITLE = "+ "'"+nmr+"';") ;
+				   				statement.executeUpdate(query);
+				        
+
+				        System.out.println("Deleted successfully!");
+				    } catch (SQLException ex) {
+				        System.out.println("Error: " + ex.getMessage());
+				    }
+				}
+					
+				
+				
+				
+				
+        
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	
+    
+
 }
 }) ;
 // HOME BUTTON     
@@ -296,7 +461,7 @@ f.dispose();
 
 // HOME BUTTON
 JButton home=new JButton("Home");
-home.setBounds (50, 220,180, 50);
+home. setBounds (50, 220,180, 50);
 home.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
 HOMEPAGE.main(null);
@@ -311,6 +476,7 @@ Font fontbutton = new Font("ARIAL",Font.BOLD, 20);
 home.setFont(fontbutton);
 c.setFont(fontbutton);
 subton.setFont(fontbutton);
+chckbtn.setFont(fontbutton);
 subton.setBackground(customColor2);
 subton.setForeground(Color.WHITE);
 f.add(home);
@@ -320,26 +486,23 @@ c.setForeground(Color.WHITE);
 c.setBackground(customColor2);
 home.setForeground(Color.WHITE);
 home.setBackground(customColor2);
-chckbtn.setFont(fontbutton);
 chckbtn.setBackground(customColor2);
 chckbtn.setForeground(Color.WHITE);
+
 //CUSTOMIZE BUTTONS
-
-
 
 JLabel bg = new JLabel("");
 f.add(bg);
 bg.setBounds(300, 220,1050, 700);
-bg.setOpaque(true);
+
 bg.setBackground(Color.WHITE);
-
-
+bg.setOpaque(true);
 
 // CUSTOMIZE FRAME}
 f.setSize(1440,1024);
 f.setVisible(true);
 f.setResizable(false);
 // CUSTOMIZE FRAME}
-}
-}
 
+}
+}

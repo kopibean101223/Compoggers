@@ -1,6 +1,6 @@
 import java.awt.event.*;
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+
 
 
 public class RETURNBOOK_PAGE {
@@ -66,7 +66,7 @@ label4.setBackground(Color.BLACK);
 
 JTextField idchecker;
 
-JLabel idchkerlbl =new JLabel ("STUDENTID");
+JLabel idchkerlbl =new JLabel ("ID");
 idchecker=new JTextField(15);
 idchkerlbl.setBounds(350, 290,300, 30);
 idchecker.setBounds(350, 320,950, 30);
@@ -74,12 +74,21 @@ f.add(idchkerlbl);
 f.add(idchecker);
 
 
+JLabel lbl6=new JLabel ("Borrowed Books: ");
+lbl6.setBounds(350, 455,300, 30);
+f.add(lbl6);
 JLabel brdtlbl = new JLabel("Date Borrowed: ");
 f.add(brdtlbl);
 brdtlbl.setBounds(350, 560,300, 30);
 JLabel dtdulbl = new JLabel("Due Date: ");
-	f.add(dtdulbl);
-	dtdulbl.setBounds(675, 560,300, 30);
+f.add(dtdulbl);
+dtdulbl.setBounds(675, 560,300, 30);
+JLabel ttllbl = new JLabel("BOOK STATUS: ");
+f.add(ttllbl);
+ttllbl.setBounds(1000, 455,300, 30);
+JLabel sttslbl = new JLabel("CATEGORY: ");
+f.add(sttslbl);
+sttslbl.setBounds(675, 455,300, 30);
 	
 	Color customColor3 = new Color(224, 228, 230);
 
@@ -91,7 +100,7 @@ JLabel dtdulbl = new JLabel("Due Date: ");
  	ttl.setEditable(false);
  	ttl.setBackground(customColor3);
  	ttl.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
- 	ttl.setForeground(customColor3);
+ 	ttl.setForeground(Color.BLACK);
  	
  	JTextField stts =new JTextField ();
  	f.add(stts);
@@ -100,7 +109,7 @@ JLabel dtdulbl = new JLabel("Due Date: ");
  	stts.setEditable(false);
  	stts.setBackground(customColor3);
  	stts.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
- 	stts.setForeground(customColor3);
+ 	stts.setForeground(Color.BLACK);
 	
  	JTextField brdt =new JTextField ();
 	f.add(brdt);
@@ -109,7 +118,7 @@ JLabel dtdulbl = new JLabel("Due Date: ");
 	brdt.setEditable(false);
 	brdt.setBackground(customColor3);
 	brdt.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-	brdt.setForeground(customColor3);
+	brdt.setForeground(Color.BLACK);
 	
 	JTextField dtdu =new JTextField ();
  	f.add(dtdu);
@@ -118,9 +127,40 @@ JLabel dtdulbl = new JLabel("Due Date: ");
  	dtdu.setEditable(false);
  	dtdu.setBackground(customColor3);
  	dtdu.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
- 	dtdu.setForeground(customColor3);
+ 	dtdu.setForeground(Color.BLACK);
+ 	
+ 	JTextField pnlty =new JTextField ();
+ 	f.add(pnlty);
+ 	pnlty.setBounds(350, 695,300, 30);
+ 	pnlty.setOpaque(true);
+ 	pnlty.setEditable(false);
+ 	pnlty.setBackground(customColor3);
+ 	pnlty.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+ 	pnlty.setForeground(Color.BLACK);
+ 	
  	
 
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  	
  	
  	
@@ -130,14 +170,14 @@ JLabel dtdulbl = new JLabel("Due Date: ");
 	        public void itemStateChanged(ItemEvent ex) {
 	            if (ex.getStateChange() == ItemEvent.SELECTED) {
 	               selectedItem = (String) ex.getItem();
-	              
 	                nmr = selectedItem;
+
 	                System.out.println("Selected item: " + selectedItem);
 	                try {// Load the MySQL driver
              	    Class.forName("com.mysql.cj.jdbc.Driver");
 
              	    // Set up the connection URL
-             	  String  url = "jdbc:mysql://localhost:3306/MYDATABASE";
+             	  String  url = "jdbc:mysql://localhost:3306/comprog";
 
              	
 				 	
@@ -149,56 +189,39 @@ JLabel dtdulbl = new JLabel("Due Date: ");
 
                  	    ResultSet resultSet2 = statement.executeQuery("SELECT CATEGORY FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
                  	    while (resultSet2.next()) {
-                 	    	JTextField ttls =new JTextField (resultSet2.getString(1));
-                 	    	f.add(ttls);
-                 	    	
-                 	    	ttls.setBounds(675, 485,300, 30);
-                 	    	ttls.setOpaque(true);
-                 	    	ttls.setEditable(false);
-                 	    	ttls.setBackground(customColor3);
-                 	    	ttls.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-                 	    	ttls.setBackground(customColor3);
+
+                 	    	ttl.setText(resultSet2.getString(1));
+
                  	    }
                  	    
                  	    ResultSet resultSet3 = statement.executeQuery("SELECT STATUS FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
                  	    while (resultSet3.next()) {
-                 	    	JTextField sttss =new JTextField (resultSet3.getString(1));
-                 	    	f.add(sttss);
-                 	    	
-                 	    	sttss.setBounds(1000, 485,300, 30);
-                 	    	sttss.setOpaque(true);
-                 	    	sttss.setEditable(false);
-                 	    	sttss.setBackground(customColor3);
-                 	    	sttss.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-                 	    	sttss.setBackground(customColor3);
+                 	    	stts.setText(resultSet3.getString(1));
                  	    }
                  	    
-                 	   ResultSet resultSet4 = statement.executeQuery("SELECT BORROWED_DATE FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
+                 	   ResultSet resultSet4 = statement.executeQuery("SELECT BORROWED_DATE, DATE_DUE,PAYMENT FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
                 	    while (resultSet4.next()) {
-                	    	JTextField brdts =new JTextField (resultSet4.getString(1));
-                	    	f.add(brdts);
+                	    	brdt.setText(resultSet4.getString(1));
+                	    	dtdu.setText(resultSet4.getString(2));
                 	    	
-                	    	brdts.setBounds(350, 590,300, 30);
-                	    	brdts.setOpaque(true);
-                	    	brdts.setEditable(false);
-                	    	brdts.setBackground(customColor3);
-                	    	brdts.setForeground(Color.BLACK);
-                	    	brdts.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+                	    	
+                	    	LocalDate duedatez = resultSet4.getDate(2).toLocalDate();
+                	    	LocalDate today = LocalDate.now();
+                	    	daysBetween = java.time.temporal.ChronoUnit.DAYS.between(duedatez, today);
+                    	    // Assuming you want to set this value to another text field
+                	    	System.out.println(daysBetween);
+                	    	
+
+                		    	if(daysBetween<=0) {
+                		    		pnlty.setText("NOT OVERDUE");
+                	    	    	return;
+                	    	    } else 
+                	    	    	pnlty.setText(resultSet4.getString(3));
+                	
+                	    	
                 	    }
                 	    
-                	    ResultSet resultSet5 = statement.executeQuery("SELECT DATE_DUE FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
-                 	    while (resultSet5.next()) {
-                 	    	JTextField dtdus =new JTextField (resultSet5.getString(1));
-                 	    	f.add(dtdus);
-                 	    	
-                 	    	dtdus.setBounds(675, 590,300, 30);
-                 	    	dtdus.setOpaque(true);
-                 	    	dtdus.setEditable(false);
-                 	    	dtdus.setBackground(customColor3);
-                 	    	dtdus.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-                 	    }
-                 	    
-                 	    
+                	    
                  	    
 
                  	    statement.close();
@@ -222,11 +245,6 @@ JLabel dtdulbl = new JLabel("Due Date: ");
  	
  	
  	
- 	
- 	
- 	
- 	
- 	
 JButton chckbtn=new JButton("Check For Record");
 chckbtn.setBounds (602, 370,450, 40);
 chckbtn.addActionListener(new ActionListener(){
@@ -236,12 +254,14 @@ public void actionPerformed (ActionEvent e){
         JOptionPane.showMessageDialog(f, "Please enter a value in the text field.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+    
+   
    
 										try {// Load the MySQL driver
 									 	    Class.forName("com.mysql.cj.jdbc.Driver");
 									
 									 	    // Set up the connection URL
-									 	    String url = "jdbc:mysql://localhost:3306/MYDATABASE";
+									 	    String url = "jdbc:mysql://localhost:3306/comprog";
 									
 									
 									 	    // Connect to the database
@@ -253,7 +273,7 @@ public void actionPerformed (ActionEvent e){
 									 	  comboBox.addItem(null);
 									 	 
 									 	 
-									 	   ResultSet resultSetss = statement.executeQuery("SELECT LASTNAME, FIRSTNAME, INITIAL,PENALTY FROM STUDENT_BORROWER WHERE STUDENTID = "+"'"+idchecker.getText()+"';");
+									 	   ResultSet resultSetss = statement.executeQuery("SELECT LASTNAME, FIRSTNAME, INITIAL,PENALTY FROM BORROWER_TABLE WHERE ID = "+"'"+idchecker.getText()+"';");
 									 	   
 									 	  if (resultSetss.next()) {
 									 		  if(resultSetss.getInt(4)!=0) {JOptionPane.showMessageDialog(f, "You have unpaid balance!");
@@ -264,6 +284,12 @@ public void actionPerformed (ActionEvent e){
 									 	    	
 									 	    	String value = resultSet.getString(1);
 									 	    	comboBox.addItem(value);
+									 	    	brdt.setText("");
+									 	        dtdu.setText("");
+									 	        ttl.setText("");
+									 	        stts.setText("");
+									 	        pnlty.setText("");
+									 	        comboBox.setSelectedItem(null);
 									 	    }
 									 	    
 									 	    
@@ -276,10 +302,10 @@ public void actionPerformed (ActionEvent e){
  	    resultSetss.close();
  	    statement.close();
  	    } catch (ClassNotFoundException ef) {
- 	        System.out.print("");
+ 	        System.out.print("ha");
  	        ef.printStackTrace();
  	    } catch (SQLException ef) {
- 	        System.out.print("");
+ 	        System.out.print("ha");
  	        ef.printStackTrace();
  	   }
 }
@@ -300,11 +326,7 @@ f.add(chckbtn);
          //BORROWER TYPE WITH TEXTBOX
 
 
-         JLabel lbl6=new JLabel ("Borrowed Books: ");
-         lbl6.setBounds(350, 455,300, 30);
-         f.add(lbl6);
-         f.add(lbl6);
-         
+      
 
 
          //BORROWER TYPE WITH TEXTBOX
@@ -328,67 +350,36 @@ public void actionPerformed (ActionEvent e){
         JOptionPane.showMessageDialog(f, "Please enter a value in the text field.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+    if (nmr == null) {
+    	JOptionPane.showMessageDialog(f, "Please Choose from the combobox.", "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+    } 
+    
+   
+
+    	if(daysBetween>0) {
+    		 if (!"PAID".equals(pnlty.getText())) {
+	    	JOptionPane.showMessageDialog(f, "Pay Penalty first on the Penalty Page.", "Error", JOptionPane.ERROR_MESSAGE);
+	    	brdt.setText("");
+ 	        dtdu.setText("");
+ 	        ttl.setText("");
+ 	        stts.setText("");
+ 	        pnlty.setText("");
+ 	        comboBox.setSelectedItem(null);
+	    	return;
+    		 }
+	    }
+    	
+    	
 	
 	
 	
 
         
-        try {// Load the MySQL driver
-		    Class.forName("com.mysql.cj.jdbc.Driver");
-
-		    // Set up the connection URL
-		    String url = "jdbc:mysql://localhost:3306/MYDATABASE";
-
-		    // Connect to the database
-		    Connection conn = DriverManager.getConnection(url, "root", "");
-		    Statement statement = conn.createStatement();
-		    ResultSet resultSetss = statement.executeQuery("SELECT DATE_DUE FROM BOOK_DETAILS WHERE TITLE = "+"'"+selectedItem+"';");
-            while (resultSetss.next()) {
-            	LocalDate duedatez = resultSetss.getDate(1).toLocalDate();
-            	System.out.print(duedatez);
-            	LocalDate today = LocalDate.now();
-            	System.out.print(today);
-            	daysBetween = ChronoUnit.DAYS.between(duedatez, today);
-		    }
-		    resultSetss.close();
-			    statement.close();
-			    } catch (ClassNotFoundException ex) {
-			    	JOptionPane.showMessageDialog(f, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		    } catch (SQLException ex) {
-		    	JOptionPane.showMessageDialog(f, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		   }
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	if( daysBetween >0) {
-		daysBetween = daysBetween*20;
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	} else 
+        
     	
-	{}
-	String url = "jdbc:mysql://localhost:3306/mydatabase";
+
+	String url = "jdbc:mysql://localhost:3306/comprog";
     String user = "root";
     String password = "";
 
@@ -399,24 +390,34 @@ public void actionPerformed (ActionEvent e){
        
 
         
-   String query = ("UPDATE BOOK_DETAILS SET STATUS ='AVAILABLE' WHERE TITLE = '"+selectedItem+"'");
-   			  String query2 = ("UPDATE BOOK_DETAILS SET BORROWER_ID = NULL WHERE TITLE = '"+selectedItem+"'");
-   			   			String query3 = ("UPDATE BOOK_DETAILS SET BORROWED_DATE = NULL WHERE TITLE = "+"'"+ selectedItem  + "';");				
-			   					String query4 = ("UPDATE BOOK_DETAILS SET DATE_DUE = NULL WHERE TITLE = "+"'"+ selectedItem  + "';");
+        String query = ("UPDATE BOOK_DETAILS SET STATUS ='AVAILABLE' WHERE TITLE = '"+selectedItem+"';");
+			  String query2 = ("UPDATE BOOK_DETAILS SET BORROWER_ID = NULL WHERE TITLE = '"+selectedItem+"';");
+			   			String query3 = ("UPDATE BOOK_DETAILS SET BORROWED_DATE = NULL WHERE TITLE = '"+ selectedItem  + "';");				
+		   					String query4 = ("UPDATE BOOK_DETAILS SET DATE_DUE = NULL WHERE TITLE = '"+ selectedItem  + "';");
+		   					String query5 = ("UPDATE BOOK_DETAILS SET PAYMENT = '' WHERE TITLE = '"+ selectedItem  + "';");
 						   			
+		   	
+   					statement.execute(query);
+	   				statement.execute(query2);
+	   				statement.execute(query3);
+	   				statement.execute(query4);
+	   				statement.execute(query5);
 			   					
-   					statement.executeUpdate(query);
-	   				statement.executeUpdate(query2);
-	   				statement.executeUpdate(query3);
-	   				statement.executeUpdate(query4);
 	   				
-	   		        
+	   				JOptionPane.showMessageDialog(f, "You have successfully Returned " +selectedItem+"!", " THANK YOU FOR RETURNING!!!", JOptionPane.INFORMATION_MESSAGE);
+	   		        System.out.println("Inserted successfully!");
+	   		        comboBox.removeItem(selectedItem);
+	   		        brdt.setText("");
+	   		        dtdu.setText("");
+	   		        ttl.setText("");
+	   		        stts.setText("");
+	   		        pnlty.setText("");
+	   		        comboBox.setSelectedItem(null);
              	    statement.close();
     } catch (SQLException ex) {
-
-    	JOptionPane.showMessageDialog(f, "You have successfully Returned " +selectedItem+"!", " THANK YOU FOR RETURNING!!!", JOptionPane.INFORMATION_MESSAGE);
-	        System.out.println("Inserted successfully!");
-	        comboBox.removeItem(selectedItem);
+    	JOptionPane.showMessageDialog(f, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    	
+	        
 	   }
     
 	

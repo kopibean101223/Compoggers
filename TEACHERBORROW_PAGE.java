@@ -1,14 +1,12 @@
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 public class TEACHERBORROW_PAGE {
 	public static String nmr;
@@ -39,9 +37,9 @@ label2.setOpaque(true);
 //}
 
 //FORM
-JLabel label3 = new JLabel("BOOK BORROWING FORM");
+JLabel label3 = new JLabel("REGISTRATION FORM");
 f.add(label3);
-label3.setBounds(500, 200,800, 169);
+label3.setBounds(575, 200,800, 169);
 label3.setFont(fonttitle);
 label3.setBackground(Color.BLACK);
 //FORM
@@ -149,159 +147,12 @@ label4.setBackground(Color.BLACK);
          //BORROWER TYPE WITH TEXTBOX
          
          
-         JLabel avlblbooks =new JLabel ("BOOK TO BE BORROWED: ");
-         avlblbooks.setBounds(350, 610,250, 30);
-         f.add(avlblbooks);
-         
-         JLabel ctgrybks =new JLabel ("CATEGORY: ");
-         ctgrybks.setBounds(675, 610,250, 30);
-         f.add(ctgrybks);
-         
-         JLabel sttsbks =new JLabel ("STATUS: ");
-         sttsbks.setBounds(1000, 610,250, 30);
-         f.add(sttsbks);
-         
-         
-         
-         
-         try {// Load the MySQL driver
-     	    Class.forName("com.mysql.cj.jdbc.Driver");
-
-     	    // Set up the connection URL
-     	    String url = "jdbc:mysql://localhost:3306/MYDATABASE";
-
-
-     	    // Connect to the database
-     	    Connection conn = DriverManager.getConnection(url, "root", "");
-     	    Statement statement = conn.createStatement();
-     	    
-     	    
-     	    String[] itemss = {null};
-     	    ResultSet resultSet = statement.executeQuery("SELECT TITLE FROM BOOK_DETAILS WHERE STATUS = 'AVAILABLE';");
-     	   comboBox = new JComboBox<>(itemss);
-     	    while (resultSet.next()) {
-     	    	String value = resultSet.getString(1);
-     	    	comboBox.addItem(value);
-     	    	f.add(comboBox);
-     	    	comboBox.setBounds(350, 640,300, 30);
-     	    }
-     	    
-     	    
-     	    
-     	    
-     	    comboBox.addItemListener(new ItemListener() {
-     	        @Override
-     	        public void itemStateChanged(ItemEvent ex) {
-     	            if (ex.getStateChange() == ItemEvent.SELECTED) {
-     	               String selectedItem = (String) ex.getItem();
-     	                nmr = selectedItem;
-     	                System.out.println("Selected item: " + selectedItem);
-     	                try {// Load the MySQL driver
-                     	    Class.forName("com.mysql.cj.jdbc.Driver");
-
-                     	    // Set up the connection URL
-                     	  String  url = "jdbc:mysql://localhost:3306/MYDATABASE";
-
-
-                     	    // Connect to the database
-                     	   Connection conn = DriverManager.getConnection(url, "root", "");
-                     	  Statement statement = conn.createStatement();
-                     	    
-
-                         	    ResultSet resultSet2 = statement.executeQuery("SELECT CATEGORY FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
-                         	    while (resultSet2.next()) {
-                         	    	JTextField ttl =new JTextField (resultSet2.getString(1));
-                         	    	f.add(ttl);
-                         	    	ttl.setBounds(675, 640,300, 30);
-                         	    	ttl.setOpaque(true);
-                         	    	ttl.setEditable(false);
-
-
-                         	    }
-                         	    
-                         	    ResultSet resultSet3 = statement.executeQuery("SELECT STATUS FROM BOOK_DETAILS WHERE TITLE = " + "'" + selectedItem+ "';");
-                         	    while (resultSet3.next()) {
-                         	    	JTextField stts =new JTextField (resultSet3.getString(1));
-                         	    	f.add(stts);
-                         	    	stts.setBounds(1000, 640,300, 30);
-                         	    	stts.setOpaque(true);
-                         	    	stts.setEditable(false);
-                         	    }
-                         	    
-                         	    resultSet.close();
-                         	    statement.close();
-                         	    } catch (ClassNotFoundException e) {
-                         	        System.out.print("");
-                         	        e.printStackTrace();
-                         	    } catch (SQLException e) {
-                         	        System.out.print("");
-                         	        e.printStackTrace();
-                         	        JOptionPane.showMessageDialog(f, "Error!");
-                         	        
-                         	   }
-     	            }
-     	        }
-     	    });
-     	    
-
-     	    
-
- 
-     	    
-     	    
-     	    
-     	    
-     	    
-     	    
-     	    
-     	    resultSet.close();
-     	    statement.close();
-     	    } catch (ClassNotFoundException e) {
-     	        System.out.print("");
-     	        e.printStackTrace();
-     	    } catch (SQLException e) {
-     	        System.out.print("");
-     	        e.printStackTrace();
-     	   }
          
          
          
          
          
-         
-         
-         
-    
-         
-         //BORROWER TYPE WITH TEXTBOX
-
-         JTextField datebor;
-         
-         JLabel lbl2=new JLabel ("Date Borrowed:");
-         datebor=new JTextField(15);
-         lbl2.setBounds(350, 690,300, 30);
-         datebor.setBounds(350, 720,470, 30);
-         f.add(lbl2);
-
-         datebor.setEditable(false); // Make it read-only
-
-         // Get today's date
-         LocalDate today = LocalDate.now();
-
-         // Format the date as desired
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-         String formattedDate = today.format(formatter);
-         datebor.setBounds(350, 720,470, 30);
-         // Set today's date in the text field
-         datebor.setText(formattedDate);
-         f.add(datebor);
-         Date Datebor = Date.valueOf(today);
-         
-         //BORROWER TYPE WITH TEXTBOX
-         
-         
-         
-         
+     
          
          
          
@@ -326,15 +177,37 @@ label4.setBackground(Color.BLACK);
          
          
 // HOME BUTTON
-JButton subton=new JButton("Borrow ");
+JButton subton=new JButton("REGISTER");
 subton. setBounds (350, 800,950, 50);
 subton.addActionListener(new ActionListener(){
 public void actionPerformed (ActionEvent e){
-	String selectedItem = (String) comboBox.getSelectedItem();
-    if (selectedItem != null) {
-        comboBox.removeItem(selectedItem);
+	
+	String lnamevalue = teachlname.getText().trim();
+    if (lnamevalue.isEmpty()) {
+        JOptionPane.showMessageDialog(f, "Please enter a value in the LASTNAME TEXTFIELD.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
-	String url = "jdbc:mysql://localhost:3306/mydatabase";
+    String fnamevalue = teachfname.getText().trim();
+    if (fnamevalue.isEmpty()) {
+        JOptionPane.showMessageDialog(f, "Please enter a value in the FIRSTNAME TEXTFIELD.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    String mnamevalue = teachmname.getText().trim();
+    if (mnamevalue.isEmpty()) {
+        JOptionPane.showMessageDialog(f, "Please enter a value in the MIDDLENAME TEXTFIELD.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    String employeeidvalue = employeeid.getText().trim();
+    if (employeeidvalue.isEmpty()) {
+        JOptionPane.showMessageDialog(f, "Please enter a value in the ID TEXTFIELD.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    employeeid.setText("");
+	teachmname.setText("");
+	teachfname.setText("");
+	teachlname.setText("");
+
+	String url = "jdbc:mysql://localhost:3306/comprog";
     String user = "root";
     String password = "";
 
@@ -346,18 +219,15 @@ public void actionPerformed (ActionEvent e){
         
         
         
-   String query = ("INSERT INTO TEACHER_BORROWER(LASTNAME, FIRSTNAME, INITIAL, EMPLOYEEID, DEPARTMENT, DATE_BORROWED)")
-   		+ "VALUES ('"+teachlname.getText()+"', '"+teachfname.getText()+"', '"+teachmname.getText()+"', '"+employeeid.getText()+"', '"+teachdepartment.getText()+"', '"+Datebor+"');";  
-   				statement.executeUpdate(query);
-   			  String query2 = ("UPDATE BOOK_DETAILS SET STATUS = 'CURRENTLY_BORROWED' WHERE TITLE = '"+ nmr  + "';");
-	   				statement.executeUpdate(query2);
-	   				
-	   			String query3 = ("UPDATE BOOK_DETAILS SET BORROWER_ID = "+"'"+employeeid.getText()+"'"+" WHERE TITLE = "+"'"+ nmr  + "';");
- 				statement.executeUpdate(query3);	
-	   				
-	   				
+   String query = ("INSERT INTO BORROWER_TABLE(TYPE, LASTNAME, FIRSTNAME, INITIAL, ID, DEPARTMENT)")
+   		+ "VALUES ('TEACHER','"+teachlname.getText()+"', '"+teachfname.getText()+"', '"+teachmname.getText()+"', '"+employeeid.getText()+"', '"+teachdepartment.getText()+"');";  
+   				
+   			  
 
-        System.out.println("Inserted successfully!");
+ 				statement.executeUpdate(query);
+ 				JOptionPane.showMessageDialog(f, "Registration successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+    
     } catch (SQLException ex) {
     	JOptionPane.showMessageDialog(f, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }

@@ -1,16 +1,17 @@
-import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ACADEMIC_PAGE {
 	public static String buttonlbl;
-public static void main (String[] args) {
+public static void main (String[]args) {
 
 JFrame f=new JFrame("TMC'S LIBRARY MANAGEMENT SYSTEM");
 f. getContentPane(). setLayout(null);
@@ -52,49 +53,7 @@ label4.setOpaque(true);
 label4.setBackground(Color.BLACK);
 //LINE
 
-Font fontop = new Font("BAHNSCHRIFT", Font.BOLD, 20);
-
-try {// Load the MySQL driver
-    Class.forName("com.mysql.cj.jdbc.Driver");
-
-    // Set up the connection URL
-    String url = "jdbc:mysql://localhost:3306/MYDATABASE";
-
-    int n=340;
-    // Connect to the database
-    Connection conn = DriverManager.getConnection(url, "root", "");
-    Statement statement = conn.createStatement();
-    ResultSet resultSet = statement.executeQuery("SELECT TITLE FROM BOOK_DETAILS WHERE CATEGORY = 'ACADEMIC'");
-    while (resultSet.next()) {
-    	JButton button = new JButton((resultSet.getString(1)));
-    	f.add(button);
-    	button.setBounds(150, n,1000, 40);
-    	button.setFont(fontop);
-    	button.setForeground(Color.BLACK);
-    	button.setContentAreaFilled(false);
-    	button.setBorderPainted(false);
-    	button.setHorizontalAlignment(SwingConstants.LEFT);
-    	n+=30;
-    	button.addActionListener(new ActionListener(){
-    		public void actionPerformed (ActionEvent e){
-    			buttonlbl = button.getText();
-    			System.out.println(buttonlbl);
-    		BOOK_INFOACADEMIC.main(null);
-    		f.dispose();
-    		}
-    		}) ;
-    }
-
-    resultSet.close();
-    statement.close();
-    } catch (ClassNotFoundException e) {
-        System.out.print("");
-        e.printStackTrace();
-    } catch (SQLException e) {
-        System.out.print("");
-        e.printStackTrace();
-        
-   }
+Font fontop = new Font("CANDARA", Font.BOLD, 20);
 
 
 
@@ -102,36 +61,7 @@ try {// Load the MySQL driver
 
 
 
-
-
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-
-         
-// BACK BUTTON
+//BACK BUTTON
 JButton c=new JButton("Back ");
 c. setBounds (1100, 830,180, 50);
 c.addActionListener(new ActionListener(){
@@ -140,28 +70,141 @@ BOOKLIST_PAGE.main(null);
 f.dispose();
 }
 }) ;
-// BACK BUTTON
+//BACK BUTTON
+
+f.add(c);
 
 
 
+
+
+
+JPanel panel = new JPanel(null);
+panel.setBorder(new EmptyBorder(40, 40, 400, 40));
+// Add some components to the JPanel
+
+
+int n = 130;
+try {// Load the MySQL driver
+Class.forName("com.mysql.cj.jdbc.Driver");
+
+// Set up the connection URL
+String url = "jdbc:mysql://localhost:3306/comprog";
+
+// Connect to the database
+Connection conn = DriverManager.getConnection(url, "root", "");
+Statement statement = conn.createStatement();
+ResultSet resultSet = statement.executeQuery("SELECT TITLE FROM BOOK_DETAILS WHERE CATEGORY = 'ACADEMIC'");
+while (resultSet.next()) {
+	JLabel btnjlbl = new JLabel(resultSet.getString(1));
+JButton button = new JButton(resultSet.getString(1));
+String btnstr = btnjlbl.getText();
+FontMetrics metrics = btnjlbl.getFontMetrics(fontop);
+
+panel.add(button);
+button.setForeground(Color.BLACK);
+button.setContentAreaFilled(false);
+button.setBorderPainted(false);
+button.setHorizontalAlignment(SwingConstants.LEFT);
+button.setBounds(50, n,metrics.stringWidth(btnstr)+34, metrics.getHeight());
+button.setFont(fontop);
+n+=35;
+button.addActionListener(new ActionListener(){
+	public void actionPerformed (ActionEvent e){
+		buttonlbl = button.getText();
+		System.out.println(buttonlbl);
+	BOOK_INFOACADEMIC.main(null);
+	f.dispose();
+	}
+	}) ;
+}
+
+resultSet.close();
+statement.close();
+} catch (ClassNotFoundException e) {
+System.out.print("");
+e.printStackTrace();
+} catch (SQLException e) {
+System.out.print("");
+e.printStackTrace();
+
+}
+
+
+
+// Create a JScrollPane and set the JPanel as its viewport view
+JScrollPane scrollPane = new JScrollPane(panel);
+
+// Add the JScrollPane to the JFrame
+f.add(scrollPane, BorderLayout.CENTER);
+
+
+// Add the JScrollPane to the center of the second JPanel
+
+
+f.add(panel);
+
+panel.setBounds(80, 220,1260, 700);
+panel.setBackground(Color.WHITE);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
 
 //CUSTOMIZE BUTTONS
 Font fontbutton = new Font("ARIAL",Font.BOLD, 20);
 
 c.setFont(fontbutton);
 
-f.add(c);
 
 c.setForeground(Color.WHITE);
 c.setBackground(customColor2);
 //CUSTOMIZE BUTTONS
 
-JLabel bg = new JLabel("");
-f.add(bg);
-bg.setBounds(80, 220,1260, 700);
-
-bg.setBackground(Color.WHITE);
-bg.setOpaque(true);
 
 // CUSTOMIZE FRAME}
 f.setSize(1440,1024);

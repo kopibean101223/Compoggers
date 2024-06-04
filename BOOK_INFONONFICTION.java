@@ -52,7 +52,7 @@ label4.setBackground(Color.BLACK);
 //LINE
 
 
-Font fontotpt = new Font("BROADWAY", Font.BOLD, 32);
+Font fontotpt = new Font("CANDARA", Font.BOLD, 26);
 
 
 
@@ -65,7 +65,7 @@ try {// Load the MySQL driver
     Class.forName("com.mysql.cj.jdbc.Driver");
 
     // Set up the connection URL
-    String url = "jdbc:mysql://localhost:3306/MYDATABASE";
+    String url = "jdbc:mysql://localhost:3306/comprog";
 
 
     // Connect to the database
@@ -78,7 +78,7 @@ try {// Load the MySQL driver
     while (resultSet.next()) {
     	JLabel RSlbl = new JLabel("BOOK TITLE: "+(resultSet.getString(1)));
     	f.add(RSlbl);
-    	RSlbl.setBounds(200, 340,1000, 60);
+    	RSlbl.setBounds(250, 370,1000, 60);
     	RSlbl.setFont(fontotpt);
     	RSlbl.setForeground(Color.BLACK);
     	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -93,7 +93,7 @@ try {// Load the MySQL driver
     while (resultSet.next()) {
     	JLabel RSlbl = new JLabel("ISBN: "+(resultSet.getString(1)));
     	f.add(RSlbl);
-    	RSlbl.setBounds(200, 400,1000, 60);
+    	RSlbl.setBounds(250, 430,1000, 60);
     	RSlbl.setFont(fontotpt);
     	RSlbl.setForeground(Color.BLACK);
     	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -106,7 +106,7 @@ try {// Load the MySQL driver
     while (resultSet.next()) {
     	JLabel RSlbl = new JLabel("CATEGORY: "+(resultSet.getString(1)));
     	f.add(RSlbl);
-    	RSlbl.setBounds(200, 460,1000, 60);
+    	RSlbl.setBounds(250, 490,1000, 60);
     	RSlbl.setFont(fontotpt);
     	RSlbl.setForeground(Color.BLACK);
     	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -119,7 +119,7 @@ try {// Load the MySQL driver
     while (resultSet.next()) {
     	JLabel RSlbl = new JLabel("BOOK AUTHOR: "+(resultSet.getString(1)));
     	f.add(RSlbl);
-    	RSlbl.setBounds(200, 520,1000, 60);
+    	RSlbl.setBounds(250, 550,1000, 60);
     	RSlbl.setFont(fontotpt);
     	RSlbl.setForeground(Color.BLACK);
     	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -132,7 +132,7 @@ try {// Load the MySQL driver
     while (resultSet.next()) {
     	JLabel RSlbl = new JLabel("PUBLISHER: "+(resultSet.getString(1)));
     	f.add(RSlbl);
-    	RSlbl.setBounds(200, 580,1000, 60);
+    	RSlbl.setBounds(250, 610,1000, 60);
     	RSlbl.setFont(fontotpt);
     	RSlbl.setForeground(Color.BLACK);
     	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -144,7 +144,7 @@ try {// Load the MySQL driver
     while (resultSet.next()) {
     	JLabel RSlbl = new JLabel("STATUS: "+(resultSet.getString(1)));
     	f.add(RSlbl);
-    	RSlbl.setBounds(200, 640,1000, 60);
+    	RSlbl.setBounds(250, 670,1000, 60);
     	RSlbl.setFont(fontotpt);
     	RSlbl.setForeground(Color.BLACK);
     	RSlbl.setHorizontalAlignment(SwingConstants.LEFT);
